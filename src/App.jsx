@@ -2,11 +2,18 @@ import { useState, useMemo } from 'react';
 
 export default function App() {
 	const [number, setNumber] = useState(0);
-	const doubleNumber = slowFunction(number);
+	const [dark, setDark] = useState(false);
+	// const doubleNumber = slowFunction(number);
 
-	// const doubleNumber = useMemo(() => {
-	// 	return slowFunction(number);
-	// }, [number]);
+	const doubleNumber = useMemo(() => {
+		return slowFunction(number);
+	}, [number]);
+	const themeStyles = {
+		backgroundColor: dark ? 'black' : 'white',
+		color: dark ? 'white' : 'black',
+	};
+
+	
 
 	return (
 		<>
@@ -16,7 +23,11 @@ export default function App() {
 				onChange={(e) => setNumber(parseInt(e.target.value))}
 			/>
 
-			{doubleNumber}
+			<button onClick={() => setDark((prevDark) => !prevDark)}>
+				change theme
+			</button>
+
+			<div style={themeStyles}>{doubleNumber}</div>
 		</>
 	);
 
